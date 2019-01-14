@@ -1,0 +1,6 @@
+footer {
+	background-color: $color-text;
+	@include breakpoint($tablet) {
+		padding: 54px 50px;
+	}
+}

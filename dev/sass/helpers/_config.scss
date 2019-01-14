@@ -1,0 +1,24 @@
+// Colors
+// --------------------------------------------
+
+// Default URLs
+
+// Images
+// Use: background: #fff url($layout+'image.png');
+$layout: '../img/layout/';
+$tmp:   '../img/tmp/';
+$fonts: '../fonts/';
+
+// Text
+$base-font-size: 16px;
+
+
+// Breakpoints
+$mobile: 490px;
+$mobile-large: 568px; // iPhone 5 Landscape
+$mobile-extra-large: 667px; // iPhone 5 Landscape
+$tablet: 768px; // iPad
+$screen-small: 1024px;
+$screen-large: 1280px;
+$screen-xlarge: 1440px;
+$screen-xxlarge: 1680px;

@@ -1,0 +1,72 @@
+header { 
+	//max-width: 1160px;
+	//height: 140px;
+	//margin: 0 auto;
+	padding: 32px 0;
+	display: flex; 
+	flex-wrap: wrap; 
+	justify-content: space-between;
+	//background-color: #F6EF8D;
+
+	@include breakpoint($screen-small) {
+		height: 140px;
+	}
+}
+
+.logotype-link {
+	display: flex; 
+	flex-wrap: wrap;
+	align-items: center;
+	width: 50%;
+	// @include breakpoint(768px) {
+	// 	width: auto; 
+	// }
+
+	.logotype { 
+		width: 100%; 
+		max-width: 200px;
+
+		@include breakpoint($screen-small) {
+			max-width: 280px;
+		}
+	}
+}
+
+.social-icons {
+	list-style: none;
+	margin: 0;
+	li {
+		display: inline-block;
+		i { 
+			color: $color-pri; 
+		}
+	}
+}
+
+.separator-image {
+	height: 100px;
+	//overflow-x: hidden !important;
+	@include breakpoint($screen-small) {
+		height: 145px;
+	}
+
+	.slide-separator {
+		height: 100px;
+		outline: none;
+		background-size: cover;
+		background-position: center center;
+		&:first-child {
+			background-image: url('../img/separator-image.jpg');
+		}
+		&:nth-child(2) {
+			background-image: url('../img/separator-image2.jpg');
+		}
+		&:last-child {
+			background-image: url('../img/separator-image3.jpg');
+		}
+
+		@include breakpoint($screen-small) {
+			height: 145px;
+		}
+	}
+}

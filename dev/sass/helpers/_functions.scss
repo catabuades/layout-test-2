@@ -1,0 +1,37 @@
+// Functions for px to em conversions
+// ------------------------------------------------------------
+
+@function emify($target, $context) {
+   @if $target == 0 { @return 0 }
+   @return $target / $context + 0em;
+}
+
+// Make px to ems using base-font-size
+// echo as: font-size: em-font(#px);
+
+@function em($target, $context: $base-font-size) {
+   @return emify($target, $context);
+}
+
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+// Calculate the percent value for a width
+@function cp($target, $container) {
+  @return ($target / $container) * 100%;
+}
+
+// Assign inputs
+// @function assign-inputs($inputs, $pseudo: null) {
+//   $list : ();
+
+//   @each $input in $inputs {
+//     $input: unquote($input);
+//     $input: if($pseudo, $input + ":" + $pseudo, $input);
+//     $list: append($list, $input, comma);
+//   }
+
+//   @return $list;
+// }

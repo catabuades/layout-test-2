@@ -1,0 +1,239 @@
+// Order of the includes matters, and it is: normal, bold, italic, bold+italic.
+@mixin font-face( $font-name, $font-path, // path + file name. Ex : path/to/font/filename
+$font-weight: 400, $font-style: normal, $support-required: 'modern') {
+  @font-face {
+    font-family: $font-name;
+    font-style: $font-style;
+    font-weight: $font-weight;
+    @if $support-required=='oldie' {
+      src: url('#{$font-path}.eot');
+      src: url('#{$font-path}.eot?#iefix') format('embedded-opentype'),
+      url('#{$font-path}.woff2') format('woff2'),
+      url('#{$font-path}.woff') format('woff'),
+      url('#{$font-path}.ttf') format('truetype');
+    }
+    @if $support-required=='recent' {
+      src: url('#{$font-path}.woff2') format('woff2'),
+      url('#{$font-path}.woff') format('woff'),
+      url('#{$font-path}.ttf') format('truetype');
+    }
+    @if $support-required=='modern' {
+      src: url('#{$font-path}.woff2') format('woff2'),
+      url('#{$font-path}.woff') format('woff');
+    }
+  }
+  @if $support-required !='oldie' and $support-required !='recent' and $support-required !='modern' {
+    @error 'Invalid support-required value. Must be "oldie"==>IE8 and above/ Android native browser 4+/ Safari 4.3 OR "recent"==>IE9+/ Android native browser 4.0+/ Safari 4.3+ OR "modern"==>IE9+/ Android native browser 4.4+/ Safari 5.1+';
+  }
+}
+
+
+// Border radius
+@mixin border-radius($radius: 50%, $moz: false, $webkit: false, $ms: false) {
+  @if $moz    { -moz-border-radius:    $radius; }
+  @if $webkit { -webkit-border-radius: $radius; }
+  @if $ms     { -ms-border-radius:     $radius; }
+  border-radius: $radius;
+}
+
+
+// Modern micro clearfix provides an easy way to contain floats without adding additional markup.
+@mixin clearfix {
+  &:after {
+    content:"";
+    display:table;
+    clear:both;
+  }
+}
+
+
+// General animation
+@mixin anim($property, $value...) {
+  -webkit-#{$property}:$value;
+    -moz-#{$property}:$value;
+      -ms-#{$property}:$value;
+        -o-#{$property}:$value;
+          #{$property}:$value;
+}
+// Usage
+// @include anim( transition, height 0.2s ease );
+// @include anim( transition, top 0.25s ease 0.1s, opacity 0.6s ease 0s, background-color 0.3s ease 0s );
+
+
+// http://zerosixthree.se/8-sass-mixins-you-must-have-in-your-toolbox/
+// Font size: rem fallback px
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+// Usage
+//p { @include font-size(14px) }
+
+
+//Keyframes
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+// Usage
+// @include keyframes(slide-down) {
+//   0% { opacity: 1; }
+//   90% { opacity: 0; }
+// }
+
+//Animations
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}
+
+// Usage
+//.element { @include animation('slide-down 5s 3'); }
+
+
+
+
+$image-path: '../img' !default;
+$fallback-extension: 'png' !default;
+$retina-suffix: '@2x';
+@mixin background-image($name, $size:false){
+  background-image: url(#{$image-path}/#{$name}.svg);
+  @if($size){
+    background-size: $size;
+  }
+  .no-svg &{
+    background-image: url(#{$image-path}/#{$name}.#{$fallback-extension});
+
+    @media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
+      background-image: url(#{$image-path}/#{$name}#{$retina-suffix}.#{$fallback-extension});
+    }
+  }
+}
+
+// Usage
+// body { @include background-image('pattern'); }
+
+
+
+// Responsive Breakpoints
+// @reference http://sass-lang.com/styleguide/layout/
+@mixin breakpoint($point) {
+
+  // Screen (2500px)
+  @if $point == min-2500 {
+    @media (min-width: 2500px)  { @content; }
+  }
+
+  // Screen (2000px)
+  @else if $point == min-2000 {
+    @media (min-width: 2000px)  { @content; }
+  }
+
+  // Screen (1920px)
+  @else if $point == min-1920 {
+    @media (min-width: 1920px)  { @content; }
+  }
+
+  // Screen large (1280px)
+  @else if $point == min-1280 {
+    @media (min-width: 1280px)  { @content; }
+  }
+
+  // Screen small (1024px)
+  @else if $point == min-1024 {
+    @media (min-width: 1024px) { @content; }
+  }
+
+  // Tablet large (768px)
+  @else if $point == min-960 {
+    @media (min-width: 960px) { @content; }
+  }
+
+  // Screen (880px)
+  @else if $point == min-880 {
+    @media (min-width: 880px) { @content; }
+  }
+
+  // Tablet large (768px)
+  @else if $point == min-768 {
+    @media (min-width: 768px) { @content; }
+  }
+
+  // Mobile ( 640px)
+  @else if $point == min-640 {
+    @media (min-width: 640px)  { @content; }
+  }
+
+  // Mobile ( 625px)
+  @else if $point == min-625 {
+    @media (min-width: 625px)  { @content; }
+  }
+
+  // Mobile ( 568px)
+  @else if $point == min-590 {
+    @media (min-width: 590px)  { @content; }
+  }
+
+  // Mobile ( 568px)
+  @else if $point == min-568 {
+    @media (min-width: 568px)  { @content; }
+  }
+
+  // Tablet small (480px)
+  @else if $point == min-480 {
+    @media (min-width: 480px)  { @content; }
+  }
+
+
+  /*
+
+  // Mobile large (320px)
+  @else if $point == mobile-large {
+    // @media (min-width: 20.01em) and (max-width: 30em)  { @content; }
+    @media (min-width: 20.01em)  { @content; }
+  }
+
+  // Mobile small (240px)
+  @else if $point == mobile-small {
+    // @media (min-width: 15em)  { @content; }
+    @media (max-width: 20em)  { @content; }
+  }
+
+  // Tablet and mobile (< 768px)
+  @else if $point == tablet-and-mobile {
+    @media (max-width: 64em) { @content; }
+  }
+
+  // Tablet-small and mobile (< 768px)
+  @else if $point == tablet-small-and-mobile {
+    @media (max-width: 48em) { @content; }
+  }
+
+  */
+
+  // All screens
+  @else if $point == all {
+    @media (max-width: 200em)  { @content; }
+  }
+
+  // Custom
+  @else {
+    @media ($point) { @content; }
+  }
+}

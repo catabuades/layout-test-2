@@ -1,0 +1,52 @@
+// Include fonts using mixin
+@font-face {
+	font-family: 'Font Awesome';
+	src: url($fonts+'fontawesome-webfont.woff2') format('woff2'),
+		url($fonts+'fontawesome-webfont.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+
+/*
+"oldie"==>IE8 and above/ Android native browser 4+/ Safari 4.3
+"recent"==>IE9+/ Android native browser 4.0+/ Safari 4.3+
+"modern"==>IE9+/ Android native browser 4.4+/ Safari 5.1+'
+*/
+
+body {
+	font-family: 'Helvetica', 'sans-serif';
+}
+
+h1, h2, h3 {
+	font-weight: bold;
+	line-height: 1.2em;
+	margin-top: 0;
+}
+
+h1 {
+	font-size: 25px;
+	color: $color-pri;
+	@include breakpoint($screen-small) {
+		font-size: 35px;
+	}
+}
+
+h2 {
+	font-size: 18px;
+	@include breakpoint($screen-small) {
+		font-size: 22px
+	}
+}
+
+h3 {
+	font-size: $base-font-size;
+	color: $color-pri;
+}
+
+p { color: $color-text; font-weight: 300; line-height: 34px; }
+a { text-decoration: none; color: $color-link; }
+
+// Address font sizes and margins set differently in IE 6/7.
+// Address font sizes within `section` and `article` in Firefox 4+, Safari 5,
+// and Chrome.

@@ -1,0 +1,44 @@
+// Kings of Mambo CSS
+
+// GENERAL
+// ----------------------------------------------------------------------
+
+// Remove text-shadow in selection highlight: h5bp.com/i
+// These selection rule sets have to be separate.
+// Customize the background color to match your design.
+::-moz-selection { background: $color-pri; color: #fff; text-shadow: none; }
+::selection { background: $color-pri; color: #fff; text-shadow: none; }
+
+
+// ----------------------------------------------------------------------
+// EO GENERAL
+
+
+// HEADER
+// ----------------------------------------------------------------------
+
+@import "header";
+
+// ----------------------------------------------------------------------
+// EO HEADER
+
+
+
+// PAGE - HOME
+// ----------------------------------------------------------------------
+
+@import "common";
+@import "content";
+
+//-----------------------------------------------------------------------
+// EO PAGE - HOME
+
+
+
+// FOOTER
+// ----------------------------------------------------------------------
+
+@import "footer";
+
+//-----------------------------------------------------------------------
+// EO FOOTER
